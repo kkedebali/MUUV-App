@@ -1,7 +1,7 @@
 import 'package:MUUV/core/globalVariables.dart';
-import 'package:MUUV/presentation/pages/explorePage.dart';
-import 'package:MUUV/presentation/pages/favoritesPage.dart';
-import 'package:MUUV/presentation/pages/specialPage.dart';
+import 'package:MUUV/features/Explore/explorePage.dart';
+import 'package:MUUV/features/Favorites/presentation/pages/favoritesPage.dart';
+import 'package:MUUV/features/Special/specialPage.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

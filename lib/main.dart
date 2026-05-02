@@ -1,4 +1,4 @@
-import 'package:MUUV/presentation/pages/home.dart';
+import 'package:MUUV/features/Favorites/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
