@@ -80,11 +80,11 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-                      IconButton(
+                      selectedButton == 1 ? IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.edit),
                         color: Colors.white,
-                      ),
+                      ):SizedBox(width: 45,),
                     ],
                   ),
                   SizedBox(height: GlobalVariables.spacerM),

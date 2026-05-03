@@ -5,14 +5,19 @@ part 'favoriteModels.g.dart';
 
 @HiveType(typeId: 0)
 class FavoriteModel extends FavoritesEntity {
+  @override
   @HiveField(0)
   final String id;
+  @override
   @HiveField(1)
   final String movieName;
+  @override
   @HiveField(2)
   final String imdb;
+  @override
   @HiveField(3)
   final List<String> categories;
+  @override
   @HiveField(4)
   final String posterPath;
 
@@ -21,13 +26,18 @@ class FavoriteModel extends FavoritesEntity {
     required this.movieName,
     required this.imdb,
     required this.categories,
-    required this.posterPath,
-  }) : super(
+    required String posterPath,
+  }) : this.posterPath = posterPath.isEmpty
+           ? "assets/icons/ph.png"
+           : posterPath,
+       super(
          id: id,
          movieName: movieName,
          imdb: imdb,
          categories: categories,
-         posterPath: posterPath,
+         posterPath: posterPath.isEmpty
+             ? "assets/icons/ph.png"
+             : posterPath,
        );
 
   factory FavoriteModel.fromJson(Map<String, dynamic> json) {
@@ -35,7 +45,7 @@ class FavoriteModel extends FavoritesEntity {
       id: json['id'].toString(),
       movieName: json['title'] ?? json['name'] ?? '',
       imdb: json['vote_average']?.toString() ?? '0.0',
-      posterPath: json['poster_path'] ?? '',
+      posterPath: json['poster_path'] ?? 'assets/icons/ph.png',
       categories:
           (json['genre_ids'] as List?)?.map((e) => e.toString()).toList() ?? [],
     );
