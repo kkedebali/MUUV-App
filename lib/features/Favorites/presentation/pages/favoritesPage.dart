@@ -1,4 +1,4 @@
-import 'package:MUUV/core/consts/globalVariables.dart';
+import 'package:MUUV/core/globalVariables.dart';
 import 'package:MUUV/features/Favorites/presentation/providers/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,10 +28,10 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                 if (datalist.isEmpty) {
                   return Center(
                     child: Container(
-                      height: 100,
+                      height: 50,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(25),
                         color: Colors.white.withAlpha(50),
                       ),
                       child: Center(

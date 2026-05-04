@@ -1,11 +1,12 @@
 import 'package:MUUV/features/Favorites/data/datasources/mockData.dart';
+import 'package:MUUV/features/Favorites/domain/repositories/favoritesRepo.dart';
 
 class DeleteFavoriteUseCase {
-  final FavoritesLocalDataSource repo;
+  final FavoritesRepoInterface repo;
 
   DeleteFavoriteUseCase(this.repo);
 
   Future<void> call(String id) async {
-    return await repo.deleteFavorites(id);
+    return await repo.delete(id);
   }
 }

@@ -14,7 +14,7 @@ final favoriteFutureProvider = FutureProvider<List<FavoritesEntity>>((
   ref,
 ) async {
   final usecase = ref.watch(getFavoriteUCProvider);
-  return await usecase.call(isMock: true);
+  return await usecase.call(isMock: false);
 });
 
 final remoteDataSourceProvider = Provider<FavoritesRepoInterface>(
@@ -29,5 +29,5 @@ final getFavoriteUCProvider = Provider(
 );
 
 final deleteFavoriteUCProvider = Provider(
-  (ref) => DeleteFavoriteUseCase(ref.watch(mockDataSourceProvider))
+  (ref) => DeleteFavoriteUseCase(ref.watch(remoteDataSourceProvider))
 );

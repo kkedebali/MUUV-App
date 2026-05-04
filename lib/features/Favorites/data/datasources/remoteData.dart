@@ -1,23 +1,32 @@
+import 'package:MUUV/features/Favorites/data/models/favoriteModels.dart';
 import 'package:MUUV/features/Favorites/domain/entities/favoritesEntity.dart';
 import 'package:MUUV/features/Favorites/domain/repositories/favoritesRepo.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class RemoteData implements FavoritesRepoInterface{
-  @override
-  Future<void> addFavorites() {
-    // TODO: implement addFavorites
-    throw UnimplementedError();
+class RemoteData implements FavoritesRepoInterface {
+  final String _noteBoxName = "favorite_box";
+
+  Future<Box<FavoritesEntity>> _getBox() async {
+    if (Hive.isBoxOpen(_noteBoxName)) return Hive.box(_noteBoxName);
+    return await Hive.openBox(_noteBoxName);
   }
 
   @override
-  Future<void> delete() {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> addFavorites(FavoritesEntity entity) async {
+    final box = await _getBox();
+    final model = FavoriteModel.fromEntity(entity);
+    return box.put(model.id, model);
   }
 
   @override
-  Future<List<FavoritesEntity>> getFavorites() {
-    // TODO: implement getFavorites
-    throw UnimplementedError();
+  Future<void> delete(String id) async{
+    final box = await _getBox();
+    await box.delete(id.toString());
   }
 
+  @override
+  Future<List<FavoritesEntity>> getFavorites() async {
+    final box = await _getBox();
+    return box.values.toList();
+  }
 }
