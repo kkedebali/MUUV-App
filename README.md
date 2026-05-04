@@ -16,7 +16,10 @@ Bu projede kodun sürdürülebilirliği ve test edilebilirliği için Clean Arch
 * **State Management:** [Riverpod](https://riverpod.dev/) (Modern ve güvenli durum yönetimi)
 
 ### ✨ Özellikler
+* Favoriler
+* Popüler, Yeni çıkan ve Aksiyon türleri (API isteği şimdilik 1 sayfa, 20 film ile sınırlı)
+* MUUVFlow (geliştirme aşamasında) 
 
 ### ✨ Ekran görüntüleri
-* **App Baz Tasarım**
 <img width="300" alt="Simulator Screenshot - iPhone 16e - 2026-05-03 at 00 39 39" src="https://github.com/user-attachments/assets/d2923733-fc5e-498c-b224-722c1f304430" />
+<img width="300" alt="Simulator Screenshot - iPhone 16e - 2026-05-04 at 19 31 17" src="https://github.com/user-attachments/assets/b5938c73-bad8-4c3f-8749-d5efc9e69808" />

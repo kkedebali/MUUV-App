@@ -8,4 +8,5 @@ class GlobalVariables {
   static const double spacerL = 30;
   static const double spacerM = 20;
   static const double spacerS = 10;
+  static const double spacerXS = 8;
 }

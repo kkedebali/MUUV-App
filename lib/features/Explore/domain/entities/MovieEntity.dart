@@ -1,14 +1,15 @@
-class FavoritesEntity {
+class MovieEntity {
   final String id;
   final String movieName;
   final String imdb;
   final String posterPath;
-  final List categories;
+  final List<String> categories;
 
-  FavoritesEntity({
+  MovieEntity({
     required this.id,
     required this.movieName,
     required this.imdb,
-    required this.categories, required this.posterPath,
+    required this.posterPath,
+    required this.categories,
   });
 }
