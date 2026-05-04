@@ -1,4 +1,4 @@
-import 'package:MUUV/core/globalVariables.dart';
+import 'package:MUUV/core/consts/globalVariables.dart';
 import 'package:MUUV/features/Favorites/presentation/providers/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
