@@ -1,5 +1,11 @@
-import 'package:MUUV/core/globalVariables.dart';
+import 'package:MUUV/core/catMapper.dart';
+import 'package:MUUV/core/consts/globalVariables.dart';
+import 'package:MUUV/features/Explore/data/models/MovieModel.dart';
+import 'package:MUUV/features/Explore/domain/entities/MovieEntity.dart';
+import 'package:MUUV/features/Favorites/data/models/favoriteModels.dart';
+import 'package:MUUV/features/Favorites/domain/entities/favoritesEntity.dart';
 import 'package:MUUV/features/Favorites/presentation/providers/provider.dart';
+import 'package:MUUV/features/MovieDetail/movieDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,110 +59,155 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                   );
                 }
 
-                return ListView.builder(
-                  itemCount: datalist.length,
-                  itemBuilder: (context, index) {
-                    final datal = datalist[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ListView.builder(
+                    itemCount: datalist.length,
+                    itemBuilder: (context, index) {
+                      final datal = datalist[index];
 
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      height: 200,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Image.asset(datal.posterPath, color: Colors.white),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.black,
-                                  const Color.fromARGB(0, 0, 0, 0),
-                                ],
-                                begin: AlignmentGeometry.bottomCenter,
-                                end: AlignmentGeometry.topCenter,
-                              ),
+                      return GestureDetector(
+                        onTap: () async {
+                          
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetail(id: datal.id),
                             ),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      datal.movieName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: GlobalVariables.fontSizeM,
-                                      ),
-                                    ),
-                                    SizedBox(height: GlobalVariables.spacerXS,),
-                                    Row(
-                                      children: datal.categories
-                                          .take(2)
-                                          .map(
-                                            (category) =>
-                                                _buildCategoryCont(category),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ],
+                          height: 150,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadiusGeometry.circular(20),
+                                child: Image.network(
+                                  datal.posterPath,
+                                  fit: BoxFit.cover,
                                 ),
-                                Column(
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black,
+                                      const Color.fromARGB(0, 0, 0, 0),
+                                    ],
+                                    begin: AlignmentGeometry.bottomCenter,
+                                    end: AlignmentGeometry.topCenter,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        ref.read(deleteFavoriteUCProvider).call(datal.id);
-                                        ref.invalidate(favoriteFutureProvider);
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    Row(
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          datal.imdb,
+                                          datal.movieName,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: GlobalVariables.fontSizeXS
+                                            fontSize: GlobalVariables.fontSizeM,
                                           ),
                                         ),
                                         SizedBox(
-                                          width: GlobalVariables.spacerXS,
+                                          height: GlobalVariables.spacerXS,
                                         ),
-                                        ClipRRect(
-                                          borderRadius: BorderRadiusGeometry.circular(20),
-                                          child: Image.asset(
-                                            'assets/icons/imdb.png',
-                                            width: 45,
+                                        Row(
+                                          children: (datal.categories)
+                                              .take(2)
+                                              .map((cat) {
+                                                final txt =
+                                                    CatMapper.getGenreName(cat);
+
+                                                return _buildCategoryCont(txt);
+                                              })
+                                              .toList(),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            ref
+                                                .read(deleteFavoriteUCProvider)
+                                                .call(datal.id);
+                                            ref.invalidate(
+                                              favoriteFutureProvider,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
                                           ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              datal.imdb.substring(0, 3),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    GlobalVariables.fontSizeXS,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: GlobalVariables.spacerXS,
+                                            ),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 8,
+                                                    vertical: 2,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.yellow[700],
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Text(
+                                                "IMDb",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: GlobalVariables
+                                                      .fontSizeXS,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
               loading: () => CircularProgressIndicator(),
@@ -175,7 +226,7 @@ Widget _buildCategoryCont(String txt) {
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(10),
     ),
     child: Text(
       txt,

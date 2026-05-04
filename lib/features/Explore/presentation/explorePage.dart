@@ -1,6 +1,7 @@
 import 'package:MUUV/core/consts/globalVariables.dart';
 import 'package:MUUV/features/Explore/data/models/MovieModel.dart';
 import 'package:MUUV/features/Explore/presentation/providers.dart';
+import 'package:MUUV/features/MovieDetail/movieDetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +28,7 @@ class ExplorePage extends ConsumerWidget {
               data: (data) => Column(
                 children: [
                   _buildNowPlayingSection2(data, ref),
-                  SizedBox(height: GlobalVariables.spacerS,),
+                  SizedBox(height: GlobalVariables.spacerS),
                   _buildPagination(data.length, _currentIndex),
                 ],
               ),
@@ -50,7 +51,7 @@ class ExplorePage extends ConsumerWidget {
                   Container(color: Colors.white, child: Text('$error')),
               loading: () => CircularProgressIndicator(),
             ),
-            SizedBox(height: 100,)
+            SizedBox(height: 100),
           ],
         ),
       ),
@@ -135,9 +136,7 @@ Widget _buildActionSection(List<MovieModel> data) {
       Stack(
         alignment: Alignment.centerLeft,
         children: [
-          Container(
-            margin: EdgeInsets.only(top:120),
-            height: 80,),
+          Container(margin: EdgeInsets.only(top: 120), height: 80),
           // Yatay Film Listesi
           SizedBox(
             height: 170, // Kartların toplam yüksekliği
@@ -224,6 +223,12 @@ Widget _buildNowPlayingSection2(List<MovieModel> data, WidgetRef ref) {
           return GestureDetector(
             onTap: () {
               print("${movie.movieName} tıklandı!");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MovieDetail(id:movie.id),
+                ),
+              );
             },
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 1),
@@ -247,10 +252,7 @@ Widget _buildNowPlayingSection2(List<MovieModel> data, WidgetRef ref) {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black,
-                        ],
+                        colors: [Colors.transparent, Colors.black],
                         stops: const [0.6, 1.0],
                       ),
                     ),
@@ -300,7 +302,7 @@ Widget _buildNowPlayingSection2(List<MovieModel> data, WidgetRef ref) {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: GlobalVariables.fontSizeXS
+                                fontSize: GlobalVariables.fontSizeXS,
                               ),
                             ),
                           ],
@@ -315,8 +317,7 @@ Widget _buildNowPlayingSection2(List<MovieModel> data, WidgetRef ref) {
         },
         options: CarouselOptions(
           height: 150,
-          viewportFraction:
-              0.85,
+          viewportFraction: 0.85,
           enlargeCenterPage: true,
           autoPlay: true,
           onPageChanged: (index, reason) {

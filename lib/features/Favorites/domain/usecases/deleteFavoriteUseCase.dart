@@ -1,4 +1,3 @@
-import 'package:MUUV/features/Favorites/data/datasources/mockData.dart';
 import 'package:MUUV/features/Favorites/domain/repositories/favoritesRepo.dart';
 
 class DeleteFavoriteUseCase {

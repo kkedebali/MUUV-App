@@ -1,5 +1,4 @@
 import 'package:MUUV/features/Favorites/data/models/favoriteModels.dart';
-import 'package:MUUV/features/Favorites/domain/entities/favoritesEntity.dart';
 
 abstract class FavoritesLocalDataSource {
   Future<List<FavoriteModel>> getFavorites();
