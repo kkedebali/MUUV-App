@@ -13,13 +13,21 @@ class RemoteData implements FavoritesRepoInterface {
 
   @override
   Future<void> addFavorites(FavoritesEntity entity) async {
-    final box = await _getBox();
-    final model = FavoriteModel.fromEntity(entity);
-    return box.put(model.id, model);
+    try {
+      print('Ekleniyor,${entity.movieName}');
+      final box = await _getBox();
+      final model = FavoriteModel.fromEntity(entity);
+      print('Eklendi,${entity.movieName}');
+
+      return box.put(model.id, model);
+      
+    } catch (e) {
+      throw Exception('Eklenemedi: $e');
+    }
   }
 
   @override
-  Future<void> delete(String id) async{
+  Future<void> delete(String id) async {
     final box = await _getBox();
     await box.delete(id.toString());
   }

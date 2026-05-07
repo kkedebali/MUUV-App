@@ -112,34 +112,39 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          datal.movieName,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: GlobalVariables.fontSizeM,
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            datal.movieName,
+                                            style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: GlobalVariables.fontSizeM,
+                                              
+                                            ),
+                                      
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: GlobalVariables.spacerXS,
-                                        ),
-                                        Row(
-                                          children: (datal.categories)
-                                              .take(2)
-                                              .map((cat) {
-                                                final txt =
-                                                    CatMapper.getGenreName(cat);
-
-                                                return _buildCategoryCont(txt);
-                                              })
-                                              .toList(),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            height: GlobalVariables.spacerXS,
+                                          ),
+                                          Row(
+                                            children: (datal.categories)
+                                                .take(2)
+                                                .map((cat) {
+                                                  final txt =
+                                                      CatMapper.getGenreName(cat);
+                                      
+                                                  return _buildCategoryCont(txt);
+                                                })
+                                                .toList(),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Column(
                                       mainAxisAlignment:
