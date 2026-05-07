@@ -21,5 +21,6 @@ Bu projede kodun sürdürülebilirliği ve test edilebilirliği için Clean Arch
 * MUUVFlow (geliştirme aşamasında) 
 
 ### ✨ Ekran görüntüleri
-<img width="300" alt="Simulator Screenshot - iPhone 16e - 2026-05-03 at 00 39 39" src="https://github.com/user-attachments/assets/d2923733-fc5e-498c-b224-722c1f304430" />
-<img width="300" alt="Simulator Screenshot - iPhone 16e - 2026-05-04 at 19 31 17" src="https://github.com/user-attachments/assets/b5938c73-bad8-4c3f-8749-d5efc9e69808" />
+<img width="300" alt="2026-05-03 at 00 39 39" src="https://github.com/user-attachments/assets/d2923733-fc5e-498c-b224-722c1f304430" />
+<img width="300" alt="2026-05-04 at 19 31 17" src="https://github.com/user-attachments/assets/b5938c73-bad8-4c3f-8749-d5efc9e69808" />
+<img width ="300" src = "https://github.com/user-attachments/assets/34b0feaf-55c6-4ef6-a0c7-52ff67e8ac81" />
