@@ -1,0 +1,36 @@
+name: Proje Kontrol Zinciri
+
+# Bu robot ne zaman çalışsın?
+on:
+  push:
+    branches: [ main, master ] # main veya master branch'ine her kod pushlandığında
+  pull_request:
+    branches: [ main, master ] # main'e birleştirilmek istenen her PR açıldığında
+
+# Robot tam olarak hangi işleri yapacak?
+jobs:
+  kontrol-ve-test:
+    runs-on: ubuntu-latest # GitHub bizim için arkada tertemiz bir Linux makine açacak
+
+    steps:
+      # 1. Adım: Benim yazdığım kodları o Linux makinesinin içine çek
+      - name: Kodları Klonla
+        uses: actions/checkout@v4
+
+      # 2. Adım: Linux makinesine Flutter/Dart ortamını kur
+      - name: Flutter Ortamını Kur
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # 3. Adım: Projenin paketlerini/bağımlılıklarını internetten indir
+      - name: Paketleri Yükle
+        run: flutter pub get
+
+      # 4. Adım: Koddaki yazım hatalarını ve standartları kontrol et (Analiz)
+      - name: Kod Analizi Yap
+        run: flutter analyze
+
+      # 5. Adım: Varsa projdeki testleri çalıştır
+      - name: Testleri Koştur
+        run: flutter test
