@@ -16,13 +16,13 @@ jobs:
 # 1. Adım: Benim yazdığım kodları o Linux makinesinin içine çek
       - name: Kodları Klonla
         uses: actions/checkout@v4
-        
+
 # 2. Adım (YENİ): Git üzerinde olmayan gizli API dosyasını Secrets'tan oluştur
       - name: API Constants Dosyasını Oluştur
         run: |
           mkdir -p lib/core/consts
-          echo "${{ secrets.API_CONSTANTS_CONTENT }}" > lib/core/consts/apiConstants.dart
-
+          echo "${{ secrets.API_CONSTANTS_CONTENT }}" | base64 --decode > lib/core/consts/apiConstants.dart
+          
 # 3. Adım: Linux makinesine Flutter/Dart ortamını kur
       - name: Flutter Ortamını Kur
         uses: subosito/flutter-action@v2
