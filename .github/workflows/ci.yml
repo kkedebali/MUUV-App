@@ -16,21 +16,27 @@ jobs:
 # 1. Adım: Benim yazdığım kodları o Linux makinesinin içine çek
       - name: Kodları Klonla
         uses: actions/checkout@v4
+        
+# 2. Adım (YENİ): Git üzerinde olmayan gizli API dosyasını Secrets'tan oluştur
+      - name: API Constants Dosyasını Oluştur
+        run: |
+          mkdir -p lib/core/consts
+          echo "${{ secrets.API_CONSTANTS_CONTENT }}" > lib/core/consts/apiConstants.dart
 
-# 2. Adım: Linux makinesine Flutter/Dart ortamını kur
+# 3. Adım: Linux makinesine Flutter/Dart ortamını kur
       - name: Flutter Ortamını Kur
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-# 3. Adım: Projenin paketlerini/bağımlılıklarını internetten indir
+# 4. Adım: Projenin paketlerini/bağımlılıklarını internetten indir
       - name: Paketleri Yükle
         run: flutter pub get
 
-# 4. Adım: Koddaki yazım hatalarını kontrol et (İnfoları ölümcül sayma)
+# 5. Adım: Koddaki yazım hatalarını kontrol et (İnfoları ölümcül sayma)
       - name: Kod Analizi Yap
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
-# 5. Adım: Varsa projdeki testleri çalıştır
+# 6. Adım: Varsa projdeki testleri çalıştır
       - name: Testleri Koştur
         run: flutter test
