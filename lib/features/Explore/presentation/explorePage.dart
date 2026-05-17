@@ -16,7 +16,7 @@ class ExplorePage extends ConsumerWidget {
     final asyncMovieTopic = ref.watch(getActionTopicProvider);
     final asyncMovieNowPlaying = ref.watch(getNowPlayingProvider);
 
-    final _currentIndex = ref.watch(carouselIndexProvider);
+    final currentIndex = ref.watch(carouselIndexProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -28,7 +28,7 @@ class ExplorePage extends ConsumerWidget {
                 children: [
                   _buildNowPlayingSection2(data, ref),
                   SizedBox(height: GlobalVariables.spacerS,),
-                  _buildPagination(data.length, _currentIndex),
+                  _buildPagination(data.length, currentIndex),
                 ],
               ),
               error: (error, stackTrace) =>
@@ -162,50 +162,6 @@ Widget _buildActionSection(List<MovieModel> data) {
             ),
           ),
         ],
-      ),
-    ],
-  );
-  ;
-}
-
-Widget _buildNowPlayingSection(List<MovieModel> data) {
-  return Stack(
-    alignment: Alignment.center, // Carousel'i merkeze alıyoruz
-    children: [
-      // Carousel Slider
-      CarouselSlider.builder(
-        itemCount: data.length,
-        itemBuilder: (context, index, realIndex) {
-          final movie = data[index];
-          return Container(
-            width: 140, // Senin tasarımındaki kart genişliği
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(60),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(movie.posterPath, fit: BoxFit.cover),
-            ),
-          );
-        },
-        options: CarouselOptions(
-          height: 220, // Kartın toplam yüksekliği
-          viewportFraction:
-              0.4, // Ekranın ne kadarını kaplayacağı (140px civarı için 0.4 ideal)
-          enlargeCenterPage:
-              true, // Ortadaki kartın daha büyük görünmesini sağlar (Efektli)
-          enableInfiniteScroll: true, // Sonsuz döngü
-          autoPlay: true, // Kendi kendine dönsün mü?
-          autoPlayInterval: const Duration(seconds: 4),
-          scrollDirection: Axis.horizontal,
-        ),
       ),
     ],
   );

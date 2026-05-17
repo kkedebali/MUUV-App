@@ -2,10 +2,15 @@ import 'package:MUUV/core/consts/apiConstants.dart';
 import 'package:MUUV/features/Explore/domain/entities/MovieEntity.dart';
 
 class MovieModel extends MovieEntity {
+  @override
   final String id;
+  @override
   final String movieName;
+  @override
   final String imdb;
+  @override
   final String posterPath;
+  @override
   final List<String> categories;
 
   MovieModel({

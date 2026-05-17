@@ -27,7 +27,7 @@ class FavoriteModel extends FavoritesEntity {
     required this.imdb,
     required this.categories,
     required String posterPath,
-  }) : this.posterPath = posterPath.isEmpty
+  }) : posterPath = posterPath.isEmpty
            ? "assets/icons/ph.png"
            : posterPath,
        super(
