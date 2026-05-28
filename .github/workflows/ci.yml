@@ -37,6 +37,17 @@ jobs:
       - name: Kod Analizi Yap
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
-# 6. Adım: Varsa projdeki testleri çalıştır
+# 6. Adım: CD Build apk
+      - name: Build apk
+        run: flutter build apk --debug
+
+# 7. Adım: Upload github
+      - name: Upload apk to github
+        uses: actions/upload-artifact@v4
+        with:
+          name: muuv-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+
+# 0. Adım: Varsa projdeki testleri çalıştır
     #  - name: Testleri Koştur
     #    run: flutter test
